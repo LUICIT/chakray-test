@@ -25,7 +25,7 @@ El objetivo de este proyecto es demostrar:
 - **JUnit 5**
 - **Mockito**
 - **Swagger / OpenAPI**
-- **Docker** (ejecución opcional en contenedor)
+- **Docker**
 
 Entorno de desarrollo utilizado:
 
@@ -135,7 +135,9 @@ Los números telefónicos son validados mediante un validador personalizado impl
 ```
 5554567890
 ```
+
 ó
+
 ```
 +525554567890
 ```
@@ -180,7 +182,7 @@ Desde la raíz del proyecto ejecutar:
 ./mvnw spring-boot:run
 ```
 
-o bien:
+ó
 
 ```bash
 mvn spring-boot:run
@@ -220,18 +222,71 @@ Para ejecutar las pruebas:
 
 # Soporte con Docker
 
-La aplicación también puede ejecutarse usando Docker.
+La aplicación puede ejecutarse utilizando **Docker** o **Docker Compose**.
 
-Construir la imagen:
+Esto permite al evaluador levantar el proyecto sin instalar Java ni Maven.
+
+## Construcción manual de la imagen
+
+Desde la raíz del proyecto ejecutar:
 
 ```bash
 docker build -t chakray-fullstack-test .
 ```
 
-Ejecutar el contenedor:
+---
+
+## Ejecutar el contenedor manualmente
+
+La aplicación requiere definir la variable de entorno `APP_AES_SECRET_KEY`, la cual debe tener **32 caracteres** para el cifrado AES.
+
+Ejemplo de ejecución:
 
 ```bash
-docker run -p 8080:8080 chakray-fullstack-test
+docker run -p 8080:8080 \
+-e APP_AES_SECRET_KEY=12345678901234567890123456789012 \
+chakray-fullstack-test
+```
+
+La aplicación estará disponible en:
+
+```
+http://localhost:8080
+```
+
+---
+
+## Ejecución usando Docker Compose
+
+Para simplificar la ejecución del proyecto se incluye un archivo `docker-compose.yml`.
+
+Ejecutar:
+
+```bash
+docker compose up --build
+```
+
+Esto realizará automáticamente:
+
+- Construcción de la imagen
+- Creación del contenedor
+- Configuración de variables de entorno
+- Exposición del puerto 8080
+
+Para detener los contenedores:
+
+```bash
+docker compose down
+```
+
+---
+
+## Acceso a la aplicación
+
+Swagger UI:
+
+```
+http://localhost:8080/swagger-ui/index.html
 ```
 
 ---
@@ -315,7 +370,7 @@ com.chakray.fullstack_test
 - El proyecto fue implementado utilizando **Java 21 y Spring Boot 4.0.3**.
 - La API puede explorarse completamente usando **Swagger UI**.
 - Las pruebas unitarias pueden ejecutarse mediante Maven.
-- La aplicación puede ejecutarse también mediante **Docker**.
+- La aplicación puede ejecutarse también mediante **Docker o Docker Compose**.
 
 Esta implementación busca demostrar:
 
