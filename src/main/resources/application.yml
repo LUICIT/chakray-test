@@ -1,0 +1,23 @@
+server:
+  port: 8080
+  tomcat:
+    max-swallow-size: 5MB
+
+spring:
+  application:
+    name: fullstack-test
+
+logging:
+  file:
+    name: ./logs/${spring.application.name}.log
+  level:
+    root: INFO
+
+springdoc:
+  swagger-ui:
+    path: /swagger
+
+security:
+  aes:
+    algorithm: ${APP_AES_ALGORITHM:AES}
+    secret-key: ${APP_AES_SECRET_KEY}
